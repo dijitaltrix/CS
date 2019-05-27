@@ -37,4 +37,24 @@ Route::prefix('/admin')->group(function () {
 
 	});
 
+
+	Route::prefix('/students')->group(function () {
+		/*
+			This is HTML, not an API so we're not doing any fancy __METHOD PUT,PATCH,DELETE requests
+			though it is possible to do and may help transition/compatibility with a future api implementation
+		*/
+		Route::get('/', 'StudentsController@getIndex')->name('students');
+
+		Route::get('/create', 'StudentsController@getCreate')->name('students.create');
+		Route::post('/create', 'StudentsController@postInsert')->name('students.insert');
+
+		Route::get('/{id}', 'StudentsController@getView')->name('students.view')->where('id', '[0-9]+');
+
+		Route::get('/{id}/edit', 'StudentsController@getEdit')->name('students.edit');
+		Route::post('/{id}/edit', 'StudentsController@postUpdate')->name('students.update');
+
+		Route::post('/{id}/delete', 'StudentsController@postDelete')->name('students.delete')->where('id', '[0-9]+');
+
+	});
+
 });
