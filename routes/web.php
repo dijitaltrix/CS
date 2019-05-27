@@ -24,13 +24,14 @@ Route::prefix('/admin')->group(function () {
 			though it is possible to do and may help transition/compatibility with a future api implementation
 		*/
 		Route::get('/', 'CustomersController@getIndex')->name('customers');
-		Route::get('/{id}', 'CustomersController@getView')->name('customers.view')->where('id', '[0-9]+');
 
 		Route::get('/create', 'CustomersController@getCreate')->name('customers.create');
 		Route::post('/create', 'CustomersController@postInsert')->name('customers.insert');
 
-		Route::get('/edit', 'CustomersController@getEdit')->name('customers.edit');
-		Route::post('/edit', 'CustomersController@postUpdate')->name('customers.update');
+		Route::get('/{id}', 'CustomersController@getView')->name('customers.view')->where('id', '[0-9]+');
+
+		Route::get('/{id}/edit', 'CustomersController@getEdit')->name('customers.edit');
+		Route::post('/{id}/edit', 'CustomersController@postUpdate')->name('customers.update');
 
 		Route::post('/{id}/delete', 'CustomersController@postDelete')->name('customers.delete')->where('id', '[0-9]+');
 
