@@ -24,12 +24,12 @@
 			<input class="form-control" value="{{ $student->name }}" readonly>
 		</div>
 		<div class="col col-xs-12 col-md-6">
-			<label>Email address</label>
-			<input class="form-control" value="{{ $student->email }}" readonly>
+			<label>Date of birth</label>
+			<input class="form-control" value="{{ $student->date_of_birth->format('d M Y') }}" readonly>
 		</div>
 	</div>
 	<br>
-	<h3>Students</h3>
+	<h3>Skills</h3>
 	<hr>
 	<div class="row">
 		@foreach ($student->skills as $skill)
@@ -37,6 +37,11 @@
 				'skill' => $skill,
 			])
 		@endforeach
+		@if ( ! count($student->skills))
+		<div class="col col-12">
+			<p>Nothing to show</p>
+		</div>
+		@endif
 	</div>
 </div>
 @endsection

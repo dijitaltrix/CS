@@ -38,6 +38,11 @@
 				'route' => route('students.edit', $student->id)
 			])
 		@endforeach
+		@if ( ! count($customer->students))
+		<div class="col col-12">
+			<p>Nothing to show</p>
+		</div>
+		@endif
 	</div>
 </div>
 @endsection
