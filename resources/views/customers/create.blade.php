@@ -14,7 +14,7 @@
 	@csrf
 	<div class="form-row">
 	    <div class="col-sm-6">
-			<label class="sr-only" for="name">Full name</label>
+			<label for="name">Full name</label>
 			@if ($errors->has('name'))
 			<span class="error">{{ $errors->first('name') }}</span>
 			@endif
@@ -23,13 +23,14 @@
 	</div>
 	<div class="form-row">
 	    <div class="col-sm-6">
-			<label class="sr-only" for="email">Email address</label>
+			<label for="email">Email address</label>
 			@if ($errors->has('email'))
 			<span class="error">{{ $errors->first('email') }}</span>
 			@endif
 			<input name="email" value="{{ request()->old('email') }}" type="text" class="form-control" id="email" placeholder="name@somewhere.com">
 	    </div>
 	</div>
+	<hr>
 	<div class="form-row">
 		<div class="col-sm-3">
 			<button type="submit" class="btn btn-sm btn-primary">Create</button>

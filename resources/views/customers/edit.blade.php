@@ -15,7 +15,7 @@
 	@csrf
 	<div class="form-row">
 	    <div class="col-sm-6">
-			<label class="sr-only" for="name">Full name</label>
+			<label for="name">Full name</label>
 			@if ($errors->has('name'))
 			<span class="error">{{ $errors->first('name') }}</span>
 			@endif
@@ -24,13 +24,28 @@
 	</div>
 	<div class="form-row">
 	    <div class="col-sm-6">
-			<label class="sr-only" for="email">Email address</label>
+			<label for="email">Email address</label>
 			@if ($errors->has('email'))
 			<span class="error">{{ $errors->first('email') }}</span>
 			@endif
 			<input name="email" value="{{ request()->old('email') ?? $customer->email }}" type="text" class="form-control" id="email" placeholder="name@somewhere.com">
 	    </div>
 	</div>
+	<div class="form-row">
+	    <div class="col-sm-6">
+			<label for="students">Students</label>
+			
+			@if ($errors->has('email'))
+			<span class="error">{{ $errors->first('email') }}</span>
+			@endif
+			<select name="students[]" multiple="multiple" class="form-control" id="students" size="10">
+			@foreach ($students as $student)
+				<option value="{{ $student->id }}" @if (in_array($student->id, $customer->students->pluck('id')->toArray())) selected="selected" @endif>{{ $student->name }}</option>
+			@endforeach
+			</select>
+	    </div>
+	</div>
+	<hr>
 	<div class="form-row">
 		<div class="col-sm-3">
 			<button type="submit" class="btn btn-sm btn-primary">Update</button>
