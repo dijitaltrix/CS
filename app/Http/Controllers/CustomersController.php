@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use App\Models\Student;
+
 
 class CustomersController extends Controller
 {
@@ -102,7 +104,7 @@ class CustomersController extends Controller
 		$customer = Customer::with('students')
 			->findOrFail($id);
 		// get all students so that any can be chosen
-		$students = Students::get();
+		$students = Student::get();
 
 		return view('customers/edit', [
 			'customer' => $customer,

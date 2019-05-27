@@ -6,6 +6,31 @@
     <title>{{ $title ?? null }}</title>
 	@yield('style')
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<style>
+		.contact {
+			border:1px solid rgba(0,0,0,0.1);
+			border-radius:2px;
+			margin-bottom:1em;
+			padding:1em 0;
+		
+			text-align:center;
+		}
+		.contact-avatar {
+			background:rgba(0,0,0,0.3);
+			border-radius:3em;
+			height:3em;
+			width:3em;
+			margin:0 auto;
+
+			color:white;
+			font-size:1.5em;
+			line-height:3em;
+		}
+		.contact-name,
+		.contact-email {
+			display:block;
+		}
+	</style>
 </head>
 <body>
 	@yield('body')

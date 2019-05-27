@@ -29,15 +29,10 @@
 	<hr>
 	<div class="row">
 	@foreach ($customers as $customer)
-		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-			<div class="customer">
-				<div class="customer-avatar">
-					{{ $customer->initials }}
-				</div>
-				<span class="customer-name"><a href="{{ route('customers.view', $customer->id) }}">{{ $customer->name }}</a></span>
-				<span class="customer-email">{{ $customer->email }}</span>
-			</div>
-		</div>
+		@include('app/includes/contact-card', [
+			'contact' => $customer,
+			'route' => route('customers.edit', $customer->id)
+		])
 	@endforeach
 	</div>
 	<hr>
@@ -52,28 +47,6 @@
 
 @section('style')
 <style>
-	.customer {
-		border:1px solid rgba(0,0,0,0.1);
-		border-radius:2px;
-		margin-bottom:1em;
-		padding:1em 0;
-		
-		text-align:center;
-	}
-	.customer-avatar {
-		background:rgba(0,0,0,0.3);
-		border-radius:3em;
-		height:3em;
-		width:3em;
-		margin:0 auto;
 
-		color:white;
-		font-size:1.5em;
-		line-height:3em;
-	}
-	.customer-name,
-	.customer-email {
-		display:block;
-	}
 </style>
 @endsection
