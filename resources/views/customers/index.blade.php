@@ -31,7 +31,7 @@
 	@foreach ($customers as $customer)
 		@include('app/includes/contact-card', [
 			'contact' => $customer,
-			'route' => route('customers.edit', $customer->id)
+			'route' => route('customers.view', $customer->id)
 		])
 	@endforeach
 	</div>
