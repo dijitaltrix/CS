@@ -34,6 +34,7 @@
 	<div class="form-row">
 	    <div class="col-sm-6">
 			<label for="students">Students</label>
+			<small class="form-text text-muted">Hold down CTRL or CMD to select multiple items</small>
 			
 			@if ($errors->has('email'))
 			<span class="error">{{ $errors->first('email') }}</span>
