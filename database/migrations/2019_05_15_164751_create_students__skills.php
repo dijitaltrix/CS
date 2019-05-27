@@ -15,7 +15,9 @@ class CreateStudentsSkills extends Migration
     {
         Schema::create('students__skills', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+			$table->integer('student_id');
+			$table->integer('skill_id');
+			$table->index(['student_id', 'skill_id'], 'students__skills_index');
         });
     }
 

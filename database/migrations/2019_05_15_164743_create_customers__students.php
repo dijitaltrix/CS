@@ -15,7 +15,9 @@ class CreateCustomersStudents extends Migration
     {
         Schema::create('customers__students', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+			$table->integer('customer_id');
+			$table->integer('student_id');
+			$table->index(['customer_id', 'student_id'], 'customer__students_index');
         });
     }
 

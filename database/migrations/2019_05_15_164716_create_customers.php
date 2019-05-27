@@ -15,7 +15,10 @@ class CreateCustomers extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+			$table->string('name', 100)->comment("The customers full name");
+			$table->string('email', 100)->comment("The customers email address");
+			$table->index('name', 'customers_name_index');
+            // not using timestamps as they are a performance drain on larger tables
         });
     }
 

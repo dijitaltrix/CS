@@ -15,7 +15,11 @@ class CreateStudents extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+			$table->string('name', 100)->comment("The students full name");
+			//Note: not using date as we're encrypting this sensitive field 
+			$table->string('date_of_birth', 255)->comment("The students encrypted date of birth");
+			$table->index('name', 'students_name_index');
+            // not using timestamps as they are a performance drain on larger tables
         });
     }
 

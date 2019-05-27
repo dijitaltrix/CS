@@ -11,6 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call([
+			CustomersSeeder::class,
+			SkillsSeeder::class,
+			StudentsSeeder::class,
+		]);
+	
+		//TODO seed join tables with valid id's 
     }
 }
