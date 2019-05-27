@@ -112,6 +112,39 @@ class CustomersController extends Controller
 		]);
 
 	}
-	
+	/**
+	 * Update an existing Customer
+	 *
+	 * @param Request $request 
+	 * @return Redirect
+	 */
+	public function postUpdate(Request $request, $id)
+	{
+		$customer = Customer::findOrFail($id);
+		$validator = Validator::make($request->input(), $customer->getUpdateRules());
+
+		if ($validator->fails()) {
+			return redirect()
+				->route('customers.edit', $customer->id)
+				->withErrors($validator)
+				->withInput();
+		}
+
+		// fill Customer with input data and save 
+		$customer->fill($request->only('name','email','students'));
+		if ($customer->save() && $customer->students()->sync($request->input('students'))) {
+			return redirect()->route('customers.view', $customer->id);
+
+		} else {
+			// mop up any other issues
+			return redirect()
+				->route('customers.edit', $customer->id)
+				->withErrors([
+					'The customer could not be updated'
+				])
+				->withInput();
+		}
+
+	}
 
 }

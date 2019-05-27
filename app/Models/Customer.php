@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rule;
 use App\Models\Traits\InitialsTrait;
+
 
 
 class Customer extends Model
@@ -79,13 +81,22 @@ class Customer extends Model
 		];
 	}
 	/**
-	 * Returns an array of edit rules for the Validation class
+	 * Returns an array of update rules for the Validation class
 	 *
 	 * @return Array
 	 */
-	public function getEditRules() : Array
+	public function getUpdateRules() : Array
 	{
-		return $this->insertRules();
+		return [
+			'name' => 'required|string|max:100',
+			'telephone' => 'digits|max:25',
+			'email' => [
+				'required',
+				'email',
+				Rule::unique($this->table)->ignore($this->id),
+    		],
+			'students.*' => 'integer'
+		];
 	}
 
 }
