@@ -131,7 +131,7 @@ class CustomersController extends Controller
 		}
 
 		// fill Customer with input data and save 
-		$customer->fill($request->only('name','email','students'));
+		$customer->fill($request->only('name','email'));
 		if ($customer->save() && $customer->students()->sync($request->input('students'))) {
 			return redirect()->route('customers.view', $customer->id);
 

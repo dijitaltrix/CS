@@ -5,6 +5,7 @@ namespace App\Models;
 use Crypt;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rule;
 use App\Models\Traits\InitialsTrait;
 
 
@@ -69,6 +70,51 @@ class Student extends Model
 	public function skills()
 	{
 		return $this->belongsToMany(Skill::class, 'students__skills');
+	}
+	/**
+	 * Filter the Collection by user supplied input
+	 *
+	 * @param Array $input 
+	 * @return Query
+	 */
+	public function scopeSearch($query, Array $input)
+	{
+		// set variables to filter on
+		$search = (isset($input['search'])) ? $input['search'] : null;
+		// filter input, we could use filter_var functions too (or filter class!)
+		$search = preg_replace('[^a-z0-9\s]', '', $search);
+		// amend query if we have something to search on
+		if ( ! empty($search)) {
+			$query->where('name', 'LIKE', "%$search%");
+		}
+		
+		return $query;
+
+	}
+	/**
+	 * Returns an array of insert rules for the Validation class
+	 *
+	 * @return Array
+	 */
+	public function getInsertRules() : Array
+	{
+		return [
+			'name' => 'required|string|max:100',
+			'date_of_birth' => 'required|date',
+		];
+	}
+	/**
+	 * Returns an array of update rules for the Validation class
+	 *
+	 * @return Array
+	 */
+	public function getUpdateRules() : Array
+	{
+		return [
+			'name' => 'required|string|max:100',
+			'date_of_birth' => 'required|date',
+			'skills.*' => 'integer'
+		];
 	}
 	
 }

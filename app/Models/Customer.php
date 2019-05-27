@@ -7,12 +7,10 @@ use Illuminate\Validation\Rule;
 use App\Models\Traits\InitialsTrait;
 
 
-
 class Customer extends Model
 {
 
 	use InitialsTrait;
-
 
 	/**
 	 * The attributes that are mass assignable.

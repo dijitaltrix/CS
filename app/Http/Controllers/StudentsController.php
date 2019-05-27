@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\Skill;
 
 
 class StudentsController extends Controller
@@ -102,13 +103,47 @@ class StudentsController extends Controller
 		// get student with their already related students
 		$student = Student::with('skills')
 			->findOrFail($id);
-		// get all students so that any can be chosen
-		$students = Student::get();
+		// get all skills so that any can be chosen
+		$skills = Skill::get();
 
 		return view('students/edit', [
 			'student' => $student,
-			'students' => $students
+			'skills' => $skills
 		]);
+
+	}
+	/**
+	 * Update an existing Student
+	 *
+	 * @param Request $request 
+	 * @return Redirect
+	 */
+	public function postUpdate(Request $request, $id)
+	{
+		$student = Student::findOrFail($id);
+		$validator = Validator::make($request->input(), $student->getUpdateRules());
+
+		if ($validator->fails()) {
+			return redirect()
+				->route('students.edit', $student->id)
+				->withErrors($validator)
+				->withInput();
+		}
+
+		// fill Student with input data and save 
+		$student->fill($request->only('name','email'));
+		if ($student->save() && $student->skills()->sync($request->input('skills'))) {
+			return redirect()->route('students.view', $student->id);
+
+		} else {
+			// mop up any other issues
+			return redirect()
+				->route('students.edit', $student->id)
+				->withErrors([
+					'The student could not be updated'
+				])
+				->withInput();
+		}
 
 	}
 	
