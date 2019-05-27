@@ -15,7 +15,7 @@
 	@csrf
 	<div class="form-row">
 	    <div class="col-sm-6">
-			<label class="sr-only" for="name">Full name</label>
+			<label for="name">Full name</label>
 			@if ($errors->has('name'))
 			<span class="error">{{ $errors->first('name') }}</span>
 			@endif
@@ -24,13 +24,26 @@
 	</div>
 	<div class="form-row">
 	    <div class="col-sm-6">
-			<label class="sr-only" for="email">Email address</label>
-			@if ($errors->has('email'))
-			<span class="error">{{ $errors->first('email') }}</span>
+			<label for="date_of_birth">Date of birth</label>
+			@if ($errors->has('date_of_birth'))
+			<span class="error">{{ $errors->first('date_of_birth') }}</span>
 			@endif
-			<input name="email" value="{{ request()->old('email') ?? $student->email }}" type="text" class="form-control" id="email" placeholder="name@somewhere.com">
+			<input name="date_of_birth" value="{{ request()->old('date_of_birth') ?? $student->date_of_birth->format('d M Y') }}" type="text" class="form-control" id="date_of_birth" placeholder="YYYY-MM-DD">
 	    </div>
 	</div>
+	<div class="form-row">
+	    <div class="col-sm-6">
+			<label for="skills">Skills</label>
+			<small class="form-text text-muted">Hold down CTRL or CMD to select multiple items</small>
+			
+			<select name="skills[]" multiple="multiple" class="form-control" id="skills" size="10">
+			@foreach ($skills as $skill)
+				<option value="{{ $skill->id }}" @if (in_array($skill->id, $student->skills->pluck('id')->toArray())) selected="selected" @endif>{{ $skill->name }}</option>
+			@endforeach
+			</select>
+	    </div>
+	</div>
+	<hr>
 	<div class="form-row">
 		<div class="col-sm-3">
 			<button type="submit" class="btn btn-sm btn-primary">Update</button>
