@@ -5,9 +5,14 @@ namespace App\Models;
 use Crypt;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\InitialsTrait;
+
 
 class Student extends Model
 {
+
+	use InitialsTrait;
+	
     /**
      * The attributes that are mass assignable.
      * @var array

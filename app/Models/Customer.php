@@ -3,9 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\InitialsTrait;
+
 
 class Customer extends Model
 {
+
+	use InitialsTrait;
+
+
 	/**
 	 * The attributes that are mass assignable.
 	 * @var array
@@ -57,21 +63,6 @@ class Customer extends Model
 		}
 		
 		return $query;
-
-	}
-	/**
-	 * Returns the capitalised initials of this Customers name
-	 *
-	 * @return string
-	 */
-	public function getInitialsAttribute() : string
-	{
-		$out = "";
-		foreach (explode(' ', $this->name) as $str) {
-			$out.= substr($str, 0, 1);
-		}
-		
-		return (string) strtoupper($out);
 
 	}
 	/**
