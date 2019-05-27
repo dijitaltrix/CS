@@ -39,9 +39,9 @@ class Student extends Model
 	 *
 	 * @return DateTime
 	 */
-	public function getDateOfBirth() : DateTime
+	public function getDateOfBirthAttribute() : DateTime
 	{
-		return new DateTime(Crypt::decrypt($this->attributes[$name]));
+		return new DateTime(Crypt::decrypt($this->attributes['date_of_birth']));
 	}
 	/**
 	 * Encrypts the Students date of birth for storage in the database
@@ -49,7 +49,7 @@ class Student extends Model
 	 * @param string $str 
 	 * @return void
 	 */
-	public function setDateOfBirth($value)
+	public function setDateOfBirthAttribute($value)
 	{
 		$this->attributes['date_of_birth'] = Crypt::encrypt($value);
 	}
